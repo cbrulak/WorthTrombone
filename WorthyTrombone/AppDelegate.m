@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "AFHTTPSessionManager.h"
+#import "Receipt.h"
+#import "ReceiptViewController.h"
+#import "ReceiptSync.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +21,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //download the bills and start processing them.
+    [ReceiptSync SyncReceipts:nil];
+    
+    ReceiptViewController *viewController = [ReceiptViewController new];
+    
+    UINavigationController *rootNavigationController = [UINavigationController new];
+    [rootNavigationController setViewControllers:@[viewController] animated:NO];
+    
+    // Configure View Controller
+    // ReceiptViewController *)[rootNavigationController topViewController];
+    
+    [self.window setRootViewController:rootNavigationController];
+    
+    
     return YES;
 }
 
